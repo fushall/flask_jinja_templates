@@ -1,0 +1,46 @@
+{% extends "vue.html" %}
+
+{% block styles %}
+  {{ super() }}
+
+  <style>
+    .app_border {
+      max-width: 375px;
+      min-height: 600px;
+      border: 1px solid red;
+    }
+  </style>
+{% endblock %}
+
+
+{% block title %}Vue template{% endblock %}
+{% block content %}
+  <div id="app" class="container-sm app_border">
+    <div>Demo Search Bar:
+      <search-bar></search-bar>
+    </div>
+  </div>
+{% endblock %}
+
+
+{% block scripts %}
+  {{ super() }}
+
+  {% include "vue-component-search-bar.html" %}
+
+  <script>
+      let app = new Vue({
+          el: '#app',
+          delimiters: ['${', '}'],
+          data: {
+              do_refresh: 0,
+          },
+          methods: {
+              comment_posted: function () {
+                  this.do_refresh = (new Date()).getTime();
+                  console.log(this.do_refresh);
+              }
+          }
+      })
+  </script>
+{% endblock scripts %}

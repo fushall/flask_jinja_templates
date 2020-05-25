@@ -1,0 +1,8 @@
+version: '3'
+services:
+  flask_jinja_templates:
+    image: flask_jinja_templates:0.0.1
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    command: bash
