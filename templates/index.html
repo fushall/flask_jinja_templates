@@ -16,8 +16,12 @@
 {% block title %}Vue template{% endblock %}
 {% block content %}
   <div id="app" class="container-sm app_border">
-    <div>Demo Search Bar:
+    <div>
+      <div>Demo Search Bar:</div>
       <search-bar></search-bar>
+
+      <div class="mt-2">Demo fetch api:</div>
+      <button v-on:click="call_restful_api">call restful api</button>
     </div>
   </div>
 {% endblock %}
@@ -36,9 +40,12 @@
               do_refresh: 0,
           },
           methods: {
-              comment_posted: function () {
-                  this.do_refresh = (new Date()).getTime();
-                  console.log(this.do_refresh);
+              call_restful_api: function () {
+                  let url = `{{ url_for('get_json') }}`
+                  let request = new Request(url, {method: 'GET'});
+                  fetch(request)
+                      .then(response => response.json())
+                      .then(json => console.log(json));
               }
           }
       })
