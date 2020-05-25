@@ -20,8 +20,12 @@
       <div>Demo Search Bar:</div>
       <search-bar></search-bar>
 
-      <div class="mt-2">Demo fetch api:</div>
+      <div class="mt-2">(F12 console) Demo Fetch API:</div>
       <button v-on:click="call_restful_api">call restful api</button>
+
+      <div class="mt-2">(F12 console) Demo Get Web Page Title:</div>
+      <input v-model="url">
+      <button v-on:click="send_http_get">get title</button>
     </div>
   </div>
 {% endblock %}
@@ -37,17 +41,31 @@
           el: '#app',
           delimiters: ['${', '}'],
           data: {
-              do_refresh: 0,
+              url: '',
           },
           methods: {
               call_restful_api: function () {
-                  let url = `{{ url_for('get_json') }}`
+                  let url = `{{ url_for('get_json') }}`;
                   let request = new Request(url, {method: 'GET'});
                   fetch(request)
                       .then(response => response.json())
                       .then(json => console.log(json));
+              },
+              send_http_get: function () {
+                  let request = new Request(
+                      `{{ url_for('get_web_page_title') }}`,
+                      {
+                          method: 'POST',
+                          headers: {'content-type': 'application/json'},
+                          body: JSON.stringify({'url': this.url})
+                      }
+                  );
+                  fetch(request)
+                      .then(response => response.json())
+                      .then(json => console.log(json));
               }
+
           }
-      })
+      });
   </script>
 {% endblock scripts %}
