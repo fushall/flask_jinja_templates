@@ -13,7 +13,7 @@
         <div class="dropdown-menu">
           <a v-for="se in search_engine_list" v-on:click="select_search_engine(se)" class="dropdown-item" href="#">${se.title}</a>
           <div v-if="search_engine_gfw_list" role="separator" class="dropdown-divider"></div>
-          <a v-for="se in search_engine_gfw_list" class="dropdown-item" href="#">${se.title}</a>
+          <a v-for="se in search_engine_gfw_list" v-on:click="select_search_engine(se)" class="dropdown-item" href="#">${se.title}</a>
         </div>
       </div>
     </div>
@@ -26,7 +26,10 @@
         data: () => {
             return {
                 text_to_search: '',
-                current_search_engine: {title: '有道(Youdao)', uri: 'http://www.youdao.com/w/eng/{}/#keyfrom=dict2.index'},
+                current_search_engine: {
+                    title: '有道(Youdao)',
+                    uri: 'http://www.youdao.com/w/eng/{}/#keyfrom=dict2.index'
+                },
                 search_engine_list: [
                     {title: '有道(Youdao)', uri: 'http://www.youdao.com/w/eng/{}/#keyfrom=dict2.index'},
                     {title: 'Magi', uri: 'https://magi.com/search?q={}'},
