@@ -1,0 +1,9 @@
+kind: pipeline
+type: docker
+name: default
+
+steps:
+  - name: hello
+    image: python:3.9-slim
+    commands:
+      - python app.py
